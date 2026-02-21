@@ -1,0 +1,84 @@
+import React from 'react';
+import { Link, usePage, router } from '@inertiajs/react';
+
+export default function AdminLayout({ children }) {
+    const { auth, flash } = usePage().props;
+
+    return (
+        <div className="min-h-screen bg-gray-100 flex">
+            {/* Sidebar */}
+            <div className="bg-gray-800 w-64 flex-shrink-0 min-h-screen text-white">
+                <div className="p-6 border-b border-gray-700">
+                    <h1 className="text-xl font-bold text-emerald-400">SMA</h1>
+                </div>
+                <nav className="p-4 space-y-2">
+                    <Link
+                        href={route('admin.vehicles.index')}
+                        className={`block px-4 py-2 rounded transition ${route().current('admin.vehicles.*') ? 'bg-emerald-600' : 'hover:bg-gray-700'}`}
+                    >
+                        Vehicles
+                    </Link>
+                    <Link
+                        href={route('admin.brands.index')}
+                        className={`block px-4 py-2 rounded transition ${route().current('admin.brands.*') ? 'bg-emerald-600' : 'hover:bg-gray-700'}`}
+                    >
+                        Brands
+                    </Link>
+                    <Link
+                        href={route('admin.gallery.index')}
+                        className={`block px-4 py-2 rounded transition ${route().current('admin.gallery.*') ? 'bg-emerald-600' : 'hover:bg-gray-700'}`}
+                    >
+                        Gallery
+                    </Link>
+                    <div className="border-t border-gray-700 my-4"></div>
+                    <Link
+                        href={route('home')}
+                        className="block px-4 py-2 rounded hover:bg-gray-700 text-gray-300 hover:text-white"
+                    >
+                        Back to Site
+                    </Link>
+                </nav>
+            </div>
+
+            {/* Main Content */}
+            <div className="flex-1 flex flex-col overflow-hidden">
+                {/* Header */}
+                <header className="bg-white shadow-sm z-10">
+                    <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                        <h2 className="text-lg font-semibold text-gray-800">Dashboard</h2>
+                        <div className="flex items-center space-x-4">
+                            <span className="text-sm text-gray-600">Welcome, {auth?.admin?.name}</span>
+                            <button
+                                onClick={() => router.post(route('admin.logout'))}
+                                className="text-sm font-medium text-red-500 hover:text-red-700 border border-red-200 hover:border-red-400 px-3 py-1.5 rounded-lg transition"
+                            >
+                                Logout
+                            </button>
+                        </div>
+                    </div>
+                </header>
+
+                {/* Flash Messages */}
+                {flash.success && (
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+                        <div className="bg-emerald-100 border border-emerald-400 text-emerald-700 px-4 py-3 rounded relative" role="alert">
+                            <span className="block sm:inline">{flash.success}</span>
+                        </div>
+                    </div>
+                )}
+                {flash.error && (
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+                        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                            <span className="block sm:inline">{flash.error}</span>
+                        </div>
+                    </div>
+                )}
+
+                {/* Page Content */}
+                <main className="flex-1 overflow-y-auto p-4 sm:p-8">
+                    {children}
+                </main>
+            </div>
+        </div>
+    );
+}
