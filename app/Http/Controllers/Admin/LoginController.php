@@ -13,7 +13,7 @@ class LoginController extends Controller
     public function create(): Response|\Illuminate\Http\RedirectResponse
     {
         if (Auth::guard('admin')->check()) {
-            return redirect()->route('admin.vehicles.index');
+            return redirect()->route('admin.dashboard');
         }
 
         return Inertia::render('Admin/Login');
@@ -29,7 +29,7 @@ class LoginController extends Controller
         if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('admin.vehicles.index'));
+            return redirect()->intended(route('admin.dashboard'));
         }
 
         return back()->withErrors([

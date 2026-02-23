@@ -95,7 +95,7 @@ export default function Gallery({ galleries, featured }) {
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/80 to-gray-900/90" />
                 <div
                     className="absolute inset-0 bg-cover bg-center opacity-30"
-                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=1950&q=80')" }}
+                    style={{ backgroundImage: "url('/images/african_forum_roundtable.png')" }}
                 />
                 <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
                     <span className="inline-block bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\FinancingApplication;
 use App\Models\Vehicle;
 use Inertia\Inertia;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class FinancingController extends Controller
 {
@@ -52,5 +53,19 @@ class FinancingController extends Controller
         FinancingApplication::create($validated);
 
         return redirect()->route('dashboard')->with('success', 'Your financing application has been submitted successfully. Our team will review it and get back to you shortly.');
+    }
+
+    public function downloadPdf(FinancingApplication $financing)
+    {
+        // Ensure user owns the application
+        if ($financing->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $financing->load('vehicle');
+
+        $pdf = Pdf::loadView('pdf.application', ['application' => $financing]);
+        
+        return $pdf->stream('Financing-Application-' . $financing->id . '.pdf');
     }
 }

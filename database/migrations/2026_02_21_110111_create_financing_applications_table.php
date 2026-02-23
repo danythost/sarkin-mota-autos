@@ -41,7 +41,7 @@ return new class extends Migration
             $table->string('guarantor_phone')->nullable();
             $table->text('guarantor_address')->nullable();
             
-            $table->enum('status', ['pending', 'reviewed', 'approved', 'rejected'])->default('pending');
+            $table->enum('status', ['pending', 'reviewing', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
         });
     }

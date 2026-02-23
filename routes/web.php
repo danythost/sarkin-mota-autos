@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Public\VehicleController as PublicVehicleController;
 use App\Http\Controllers\Admin\VehicleController as AdminVehicleController;
 use App\Http\Controllers\Admin\BrandController as AdminBrandController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 
 use App\Http\Controllers\Public\PageController;
 use App\Http\Controllers\Public\FinancingController;
@@ -19,6 +20,7 @@ Route::get('/vehicles/{vehicle:slug}', [PublicVehicleController::class, 'show'])
 
 Route::get('/financing', [FinancingController::class, 'index'])->name('financing.index');
 Route::post('/financing', [FinancingController::class, 'store'])->name('financing.store');
+Route::get('/financing/{financing}/pdf', [FinancingController::class, 'downloadPdf'])->name('financing.pdf')->middleware('auth');
 
 Route::get('/gallery', [PublicGalleryController::class, 'index'])->name('gallery.index');
 Route::get('/gallery/{gallery:slug}', [PublicGalleryController::class, 'show'])->name('gallery.show');
@@ -36,6 +38,7 @@ Route::prefix('sarki-manager')->name('admin.')->group(function () {
 
 // Admin Routes (admin guard required)
 Route::middleware(['admin'])->prefix('sarki-manager')->name('admin.')->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::resource('vehicles', AdminVehicleController::class);
     Route::resource('brands', AdminBrandController::class);
     Route::resource('gallery', AdminGalleryController::class);
