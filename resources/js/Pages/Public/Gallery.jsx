@@ -120,11 +120,11 @@ export default function Gallery({ galleries, featured }) {
                             </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {featuredEvents.map(event => (
-                                <Link key={event.id} href={route('gallery.show', event.slug)} className="group block bg-gradient-to-br from-gray-900 to-emerald-950 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300">
+                            {featuredEvents.map((event, idx) => (
+                                <Link key={event.id} href={route('gallery.show', event.slug)} className="group block bg-gradient-to-br from-gray-900 to-emerald-950 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 animate-reveal-up" style={{ animationDelay: `${idx * 150}ms` }}>
                                     {event.cover_image && (
                                         <div className="h-48 overflow-hidden">
-                                            <img src={event.cover_image.url} alt={event.title} className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500" />
+                                            <img src={event.cover_image.url} alt={event.title} className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-110 transition-all duration-700" />
                                         </div>
                                     )}
                                     <div className="p-6 text-white">
@@ -156,8 +156,8 @@ export default function Gallery({ galleries, featured }) {
                                 key={tab.key}
                                 onClick={() => setActiveTab(tab.key)}
                                 className={`px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 ${activeTab === tab.key
-                                        ? 'bg-emerald-600 text-white shadow-md shadow-emerald-200'
-                                        : 'bg-white text-gray-600 border border-gray-200 hover:border-emerald-300 hover:text-emerald-600'
+                                    ? 'bg-emerald-600 text-white shadow-md shadow-emerald-200'
+                                    : 'bg-white text-gray-600 border border-gray-200 hover:border-emerald-300 hover:text-emerald-600'
                                     }`}
                             >
                                 {tab.label}
@@ -177,8 +177,10 @@ export default function Gallery({ galleries, featured }) {
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                            {filtered.map(gallery => (
-                                <GalleryCard key={gallery.id} gallery={gallery} />
+                            {filtered.map((gallery, idx) => (
+                                <div key={gallery.id} className="animate-reveal-up" style={{ animationDelay: `${idx * 100}ms` }}>
+                                    <GalleryCard gallery={gallery} />
+                                </div>
                             ))}
                         </div>
                     )}

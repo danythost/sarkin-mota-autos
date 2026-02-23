@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@variant dark (&:where(.dark, .dark *));
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -8,4 +9,98 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Custom Transitions */
+    --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@layer utilities {
+    .animate-reveal-up {
+        animation: reveal-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .animate-reveal-down {
+        animation: reveal-down 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .animate-zoom-in {
+        animation: zoom-in 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .animate-float {
+        animation: float 4s ease-in-out infinite;
+    }
+
+    .delay-100 {
+        animation-delay: 100ms;
+    }
+
+    .delay-200 {
+        animation-delay: 200ms;
+    }
+
+    .delay-300 {
+        animation-delay: 300ms;
+    }
+
+    .delay-400 {
+        animation-delay: 400ms;
+    }
+
+    .delay-500 {
+        animation-delay: 500ms;
+    }
+
+    .interactive-card {
+        @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-emerald-900/10 dark:hover:shadow-emerald-900/20 active:scale-[0.98];
+    }
+}
+
+@keyframes reveal-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes reveal-down {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoom-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
 }

@@ -1,9 +1,25 @@
 import React from 'react';
-import { Link, Head } from '@inertiajs/react';
+import { Link, Head, useForm } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 import VehicleCard from '@/Components/VehicleCard';
+import GalleryVideoCard from '@/Components/GalleryVideoCard';
+import GallerySpotlight from '@/Components/GallerySpotlight';
 
-export default function Home({ featuredVehicles, brands }) {
+export default function Home({ featuredVehicles, brands, featuredGalleries }) {
+    const { data: enquiryData, setData: setEnquiryData, post: postEnquiry, processing: enquiryProcessing, errors: enquiryErrors, reset: resetEnquiry, recentlySuccessful: recentlyEnquired } = useForm({
+        name: '',
+        email: '',
+        message: '',
+    });
+
+    const submitEnquiry = (e) => {
+        e.preventDefault();
+        postEnquiry(route('enquiry.store'), {
+            preserveScroll: true,
+            onSuccess: () => resetEnquiry(),
+        });
+    };
+
     return (
         <AppLayout>
             <Head title="Home - Sarkin Moto Autos" />
@@ -15,32 +31,42 @@ export default function Home({ featuredVehicles, brands }) {
                     className="absolute inset-0 bg-cover bg-center"
                     style={{ backgroundImage: "url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')" }}
                 ></div>
-                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 flex flex-col items-center text-center">
-                    <h1 className="text-4xl md:text-6xl font-bold mb-4">Find Your Dream Car</h1>
-                    <p className="text-xl md:text-2xl mb-8 text-gray-200">Quality pre-owned vehicles at unbeatable prices.</p>
-                    <div className="flex space-x-4">
-                        <Link
-                            href={route('vehicles.index')}
-                            className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-full transition duration-300"
-                        >
-                            Browse Inventory
+                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-48 flex flex-col items-center text-center">
+                    <span className="inline-block bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 text-emerald-400 dark:text-emerald-300 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6 animate-reveal-down">
+                        Welcome to Sarkin Mota Autos
+                    </span>
+                    <h1 className="text-5xl md:text-8xl font-black text-white leading-tight mb-8 animate-reveal-up">
+                        Drive the <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">Extraordinary</span>
+                    </h1>
+                    <p className="text-lg md:text-2xl text-gray-300 max-w-3xl mb-12 animate-reveal-up delay-100">
+                        Experience the pinnacle of automotive luxury and performance. We bring the world's most prestigious vehicles to the heart of Nigeria.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-6 animate-reveal-up delay-200">
+                        <Link href={route('vehicles.index')} className="group bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-5 px-10 rounded-full transition-all duration-300 shadow-xl shadow-emerald-600/20 active:scale-95 flex items-center">
+                            Explore Inventory
+                            <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                         </Link>
+                        <a href="#about" className="bg-white/10 backdrop-blur-md hover:bg-white/20 text-white font-bold py-5 px-10 rounded-full border border-white/20 transition-all duration-300 active:scale-95">
+                            Learn More
+                        </a>
                     </div>
                 </div>
             </div>
 
             {/* Featured Vehicles */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 transition-colors duration-300">
                 <div className="flex justify-between items-center mb-8">
-                    <h2 className="text-3xl font-bold text-gray-900">Featured Vehicles</h2>
-                    <Link href={route('vehicles.index')} className="text-emerald-600 hover:text-emerald-800 font-medium">
+                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Featured Vehicles</h2>
+                    <Link href={route('vehicles.index')} className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 font-medium transition-colors">
                         View All Categories →
                     </Link>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {featuredVehicles.map(vehicle => (
-                        <VehicleCard key={vehicle.id} vehicle={vehicle} />
+                <div className="flex flex-wrap justify-center gap-8">
+                    {featuredVehicles.map((vehicle, idx) => (
+                        <div key={vehicle.id} className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] max-w-sm animate-reveal-up" style={{ animationDelay: `${idx * 150}ms` }}>
+                            <VehicleCard vehicle={vehicle} />
+                        </div>
                     ))}
                 </div>
 
@@ -51,25 +77,72 @@ export default function Home({ featuredVehicles, brands }) {
                 )}
             </div>
 
+            {/* Feature Gallery (Cinematic Spotlight) */}
+            <div className="bg-white dark:bg-gray-950 py-24 border-t border-gray-100 dark:border-gray-800 relative overflow-hidden transition-colors duration-300">
+                {/* Decorative Background for Spotlight */}
+                <div className="absolute top-0 left-0 w-full h-full opacity-10 dark:opacity-20 pointer-events-none">
+                    <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-emerald-100 dark:bg-emerald-900/40 rounded-full blur-[160px]" />
+                </div>
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+                        <div className="animate-reveal-up">
+                            <span className="text-emerald-600 dark:text-emerald-500 font-bold uppercase tracking-[0.4em] text-[10px]">Showroom Spotlight</span>
+                            <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mt-4 italic tracking-tighter uppercase">The Art of <span className="text-emerald-500">Motion</span></h2>
+                        </div>
+                    </div>
+
+                    <div className="animate-zoom-in">
+                        <GalleryVideoCard videoSrc="https://video.wixstatic.com/video/11062b_1ed35c60e58e469595860dd3971e4793/1080p/mp4/file.mp4" />
+                    </div>
+
+                    <div className="mt-16 text-center animate-reveal-up delay-300">
+                        <Link
+                            href={route('gallery.index')}
+                            className="inline-flex items-center px-12 py-5 bg-gray-950 dark:bg-white text-white dark:text-gray-950 rounded-full font-black text-xs uppercase tracking-[0.2em] hover:bg-emerald-600 transition-all duration-500 shadow-2xl active:scale-95"
+                        >
+                            Explore Full Showroom
+                            <svg className="w-4 h-4 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+
             {/* Brands Section */}
-            <div className="bg-gray-100 py-12">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Browse by Brand</h2>
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                        {brands.map(brand => (
+            <div className="bg-slate-50 dark:bg-gray-900 py-24 relative overflow-hidden transition-colors duration-300">
+                {/* Decorative background elements */}
+                <div className="absolute top-0 right-0 w-1/3 h-full bg-emerald-500/5 blur-[120px] pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-1/4 h-full bg-teal-500/5 blur-[100px] pointer-events-none" />
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="text-center mb-16 animate-reveal-up">
+                        <span className="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">World Class Manufacturers</span>
+                        <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">Browse by <span className="text-emerald-500">Brand</span></h2>
+                    </div>
+
+                    <div className="flex flex-wrap justify-center gap-6">
+                        {brands.map((brand, idx) => (
                             <Link
                                 key={brand.id}
                                 href={route('vehicles.index', { brand: brand.slug })}
-                                className="bg-white p-6 rounded-lg shadow hover:shadow-md transition duration-300 flex flex-col items-center justify-center text-center group"
+                                className="group relative w-32 h-32 md:w-40 md:h-40 bg-white/40 dark:bg-gray-800/40 backdrop-blur-md border border-white/60 dark:border-white/5 rounded-[2.5rem] flex flex-col items-center justify-center p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/20 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 animate-reveal-up"
+                                style={{ animationDelay: `${idx * 100}ms` }}
                             >
-                                {brand.logo ? (
-                                    <img src={`/storage/${brand.logo}`} alt={brand.name} className="h-12 object-contain mb-3 group-hover:scale-110 transition-transform duration-300" />
-                                ) : (
-                                    <div className="h-12 w-12 bg-gray-200 rounded-full flex items-center justify-center mb-3 text-xl font-bold text-gray-500">
-                                        {brand.name.charAt(0)}
-                                    </div>
-                                )}
-                                <span className="font-medium text-gray-900">{brand.name}</span>
+                                <div className="relative z-10 flex flex-col items-center gap-4">
+                                    {brand.logo ? (
+                                        <div className="h-10 md:h-14 flex items-center justify-center">
+                                            <img src={brand.logo} alt={brand.name} className="max-h-full w-auto grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" />
+                                        </div>
+                                    ) : (
+                                        <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-black text-xl group-hover:bg-emerald-500 group-hover:text-white transition-all duration-500">
+                                            {brand.name.substring(0, 1)}
+                                        </div>
+                                    )}
+                                    <span className="text-[10px] md:text-xs font-black uppercase tracking-widest text-gray-400 dark:text-gray-500 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                                        {brand.name}
+                                    </span>
+                                </div>
+                                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2.5rem]" />
                             </Link>
                         ))}
                     </div>
@@ -77,32 +150,32 @@ export default function Home({ featuredVehicles, brands }) {
             </div>
 
             {/* About Us Section */}
-            <section id="about" className="py-24 bg-white">
+            <section id="about" className="py-24 bg-white dark:bg-gray-950 transition-colors duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div>
-                            <span className="text-emerald-600 font-bold uppercase tracking-wider text-sm">About Sarkin Moto Autos</span>
-                            <h2 className="text-4xl font-extrabold text-gray-900 mt-2 mb-6">Expertise, Integrity, and Premium Vehicles</h2>
-                            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                            <span className="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider text-sm">About Sarkin Moto Autos</span>
+                            <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white mt-2 mb-6">Expertise, Integrity, and Premium Vehicles</h2>
+                            <p className="text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
                                 Founded in 2009, Sarkin Moto Autos (SMA) has established itself as the "King of Cars" in the Nigerian market. Our journey began with a single mission: to provide transparent, high-quality automotive solutions that Nigerians can trust.
                             </p>
                             <div className="grid grid-cols-2 gap-8 mb-8">
                                 <div>
-                                    <div className="text-3xl font-bold text-emerald-600">15+</div>
+                                    <div className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">15+</div>
                                     <div className="text-sm text-gray-500 font-medium">Years Experience</div>
                                 </div>
                                 <div>
-                                    <div className="text-3xl font-bold text-emerald-600">2,500+</div>
+                                    <div className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">2,500+</div>
                                     <div className="text-sm text-gray-500 font-medium">Cars Sold</div>
                                 </div>
                             </div>
-                            <div className="p-6 bg-gray-50 rounded-2xl border border-gray-100 mb-8">
-                                <h3 className="font-bold text-gray-900 mb-2">Our Vision</h3>
-                                <p className="text-gray-600 italic">"To be Nigeria's most reliable and transparent automotive partner, delivering excellence one car at a time."</p>
+                            <div className="p-6 bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 mb-8 transition-colors">
+                                <h3 className="font-bold text-gray-900 dark:text-white mb-2">Our Vision</h3>
+                                <p className="text-gray-600 dark:text-gray-400 italic">"To be Nigeria's most reliable and transparent automotive partner, delivering excellence one car at a time."</p>
                             </div>
                             <div className="flex items-center space-x-4">
-                                <span className="bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-xs font-bold uppercase">CAC Registered</span>
-                                <span className="bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-xs font-bold uppercase">Certified Dealer</span>
+                                <span className="bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 px-4 py-2 rounded-full text-xs font-bold uppercase transition-colors">CAC Registered</span>
+                                <span className="bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 px-4 py-2 rounded-full text-xs font-bold uppercase transition-colors">Certified Dealer</span>
                             </div>
                         </div>
                         <div className="relative">
@@ -118,33 +191,28 @@ export default function Home({ featuredVehicles, brands }) {
             </section>
 
             {/* Testimonials Section */}
-            <section id="testimonials" className="py-24 bg-gray-50 overflow-hidden">
+            <section id="testimonials" className="py-24 bg-gray-50 dark:bg-gray-900 overflow-hidden transition-colors duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <span className="text-emerald-600 font-bold uppercase tracking-wider text-sm">Customer Stories</span>
-                        <h2 className="text-4xl font-extrabold text-gray-900 mt-2">What Our Clients Say</h2>
+                        <span className="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider text-sm">Customer Stories</span>
+                        <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white mt-2">What Our Clients Say</h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {[
-                            { name: "Alhaji Musa", location: "Lagos", text: "Finding a trustworthy dealer in Lagos is hard, but SMA made it easy. My Toyota Avalon is perfect. Transparent pricing and great service.", stars: 5 },
-                            { name: "Chidi Okafor", location: "Enugu", text: "I bought a Lexus ES350 from SMA and had it delivered to Enugu. The car exceeded my expectations and the documentation was seamless.", stars: 5 },
-                            { name: "Mrs. Adeyemi", location: "Abuja", text: "As a first-time buyer, I was nervous. The team at SMA walked me through everything. I'm so happy with my new Honda Accord.", stars: 5 }
-                        ].map((item, idx) => (
-                            <div key={idx} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                                <div className="flex text-yellow-400 mb-4">
-                                    {[...Array(item.stars)].map((_, i) => (
-                                        <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                            { name: 'Emeka Obi', role: 'Entrepreneur', text: '“The level of professionalism and the quality of cars at Sarkin Mota Autos are unmatched in Nigeria. My purchase process was seamless.”' },
+                            { name: 'Sarah Ahmed', role: 'Business Executive', text: '“I appreciated the transparent financing options. They made it easy for me to acquire my dream SUV without any stress.”' },
+                            { name: 'Tunde Bakare', role: 'Architect', text: '“Excellent after-sales support and attention to detail. I highly recommend them to anyone looking for premium vehicles.”' }
+                        ].map((t, i) => (
+                            <div key={i} className="bg-gray-50 dark:bg-gray-900 p-8 rounded-3xl border border-gray-100 dark:border-gray-800 interactive-card animate-reveal-up" style={{ animationDelay: `${i * 200}ms` }}>
+                                <div className="flex text-emerald-500 mb-4">
+                                    {[...Array(5)].map((_, star) => (
+                                        <svg key={star} className="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
                                     ))}
                                 </div>
-                                <p className="text-gray-600 mb-6 italic">"{item.text}"</p>
-                                <div className="flex items-center space-x-3">
-                                    <div className="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-bold">
-                                        {item.name.charAt(0)}
-                                    </div>
-                                    <div>
-                                        <h4 className="font-bold text-gray-900">{item.name}</h4>
-                                        <p className="text-xs text-gray-500">{item.location}, Nigeria</p>
-                                    </div>
+                                <p className="text-gray-600 dark:text-gray-400 italic mb-6 leading-relaxed">{t.text}</p>
+                                <div>
+                                    <h4 className="font-bold text-gray-900 dark:text-white">{t.name}</h4>
+                                    <p className="text-xs text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider">{t.role}</p>
                                 </div>
                             </div>
                         ))}
@@ -152,8 +220,8 @@ export default function Home({ featuredVehicles, brands }) {
                 </div>
             </section>
 
-            {/* Contact Section */}
-            <section id="contact" className="py-24 bg-white">
+            {/* Enquiry Section */}
+            <section id="enquiry" className="py-24 bg-white dark:bg-gray-950 transition-colors duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="bg-emerald-900 rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row">
                         <div className="lg:w-1/2 p-12 text-white">
@@ -162,7 +230,7 @@ export default function Home({ featuredVehicles, brands }) {
                                     <img src="/storage/sma_support_rep.png" alt="SMA Representative" className="w-full h-full object-cover" />
                                 </div>
                                 <div>
-                                    <h2 className="text-3xl font-extrabold">Get in Touch</h2>
+                                    <h2 className="text-3xl font-extrabold">Contact Us</h2>
                                     <p className="text-emerald-400 font-medium">Talk to our Sales Expert</p>
                                 </div>
                             </div>
@@ -189,32 +257,112 @@ export default function Home({ featuredVehicles, brands }) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex space-x-4">
-                                <a href="#" className="w-10 h-10 bg-emerald-800 rounded-full flex items-center justify-center hover:bg-emerald-700 transition"><svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg></a>
-                                <a href="#" className="w-10 h-10 bg-emerald-800 rounded-full flex items-center justify-center hover:bg-emerald-700 transition"><svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.045.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.058-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg></a>
-                            </div>
                         </div>
-                        <div className="lg:w-1/2 p-12 bg-white">
-                            <form className="space-y-4">
+                        <div className="lg:w-1/2 p-12 bg-white dark:bg-gray-900 transition-colors">
+                            <form onSubmit={submitEnquiry} className="space-y-4">
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-1">Full Name</label>
-                                    <input type="text" className="w-full border-gray-200 rounded-xl p-4 focus:ring-emerald-500 focus:border-emerald-500" placeholder="John Doe" />
+                                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1 transition-colors">Full Name</label>
+                                    <input
+                                        type="text"
+                                        className="w-full border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 rounded-xl p-4 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                                        placeholder="John Doe"
+                                        value={enquiryData.name}
+                                        onChange={e => setEnquiryData('name', e.target.value)}
+                                        required
+                                    />
+                                    {enquiryErrors.name && <div className="text-red-500 text-xs mt-1">{enquiryErrors.name}</div>}
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-1">Email Address</label>
-                                    <input type="email" className="w-full border-gray-200 rounded-xl p-4 focus:ring-emerald-500 focus:border-emerald-500" placeholder="john@example.com" />
+                                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1 transition-colors">Email Address</label>
+                                    <input
+                                        type="email"
+                                        className="w-full border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 rounded-xl p-4 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                                        placeholder="john@example.com"
+                                        value={enquiryData.email}
+                                        onChange={e => setEnquiryData('email', e.target.value)}
+                                        required
+                                    />
+                                    {enquiryErrors.email && <div className="text-red-500 text-xs mt-1">{enquiryErrors.email}</div>}
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-1">Message</label>
-                                    <textarea className="w-full border-gray-200 rounded-xl p-4 focus:ring-emerald-500 focus:border-emerald-500 h-32" placeholder="I am interested in..."></textarea>
+                                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1 transition-colors">Message</label>
+                                    <textarea
+                                        className="w-full border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 rounded-xl p-4 focus:ring-emerald-500 focus:border-emerald-500 h-32 transition-colors"
+                                        placeholder="I am interested in..."
+                                        value={enquiryData.message}
+                                        onChange={e => setEnquiryData('message', e.target.value)}
+                                        required
+                                    ></textarea>
+                                    {enquiryErrors.message && <div className="text-red-500 text-xs mt-1">{enquiryErrors.message}</div>}
                                 </div>
-                                <button type="submit" className="w-full bg-emerald-600 text-white font-bold py-4 rounded-xl hover:bg-emerald-500 transition shadow-lg shadow-emerald-200">
-                                    Send Message
+                                <button
+                                    type="submit"
+                                    className="w-full bg-emerald-600 text-white font-bold py-4 rounded-xl hover:bg-emerald-500 transition shadow-lg shadow-emerald-200 dark:shadow-emerald-900/20 disabled:opacity-50"
+                                    disabled={enquiryProcessing}
+                                >
+                                    {enquiryProcessing ? 'Sending...' : 'Contact Us'}
                                 </button>
+                                {recentlyEnquired && (
+                                    <div className="mt-4 p-4 bg-emerald-100 text-emerald-700 rounded-xl text-sm font-bold animate-reveal-up">
+                                        Thank you! Your enquiry has been sent.
+                                    </div>
+                                )}
                             </form>
                         </div>
                     </div>
                 </div>
+            </section>
+
+            {/* Location Map Section (Optimized Full-Width) */}
+            <section className="relative w-full h-[600px] overflow-hidden bg-gray-900 group">
+                <iframe
+                    title="Sarkin Mota Autos Location"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15858.46312415147!2d7.485!3d9.05!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0baf7b3e691d%3A0x7d6c6a6a6a6a6a6a!2sCentral%20Business%20District%2C%20Abuja!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="grayscale hover:grayscale-0 transition-all duration-1000 scale-[1.02]"
+                ></iframe>
+
+                {/* Floating Info Card Overlay */}
+                <div className="absolute top-12 left-4 sm:left-12 lg:left-24 z-10 max-w-sm w-full">
+                    <div className="bg-emerald-900/95 backdrop-blur-md text-white p-8 rounded-3xl shadow-2xl border border-emerald-800 transform transition duration-500 hover:-translate-y-2">
+                        <div className="flex items-center space-x-3 mb-6">
+                            <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                            </div>
+                            <h3 className="text-xl font-bold">Visit Our Showroom</h3>
+                        </div>
+                        <div className="space-y-4 mb-8">
+                            <div>
+                                <h4 className="text-emerald-400 text-xs font-bold uppercase tracking-widest mb-1">Corporate Office</h4>
+                                <p className="text-sm font-medium leading-relaxed">
+                                    123 SMA Plaza, Victoria Island,<br />
+                                    Lagos, Nigeria
+                                </p>
+                            </div>
+                            <div>
+                                <h4 className="text-emerald-400 text-xs font-bold uppercase tracking-widest mb-1">Business Hours</h4>
+                                <p className="text-sm font-medium">Mon - Sat: 8:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+                        <a
+                            href="https://maps.google.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center w-full py-4 bg-white text-emerald-900 rounded-2xl font-bold hover:bg-emerald-50 text-sm transition shadow-xl"
+                        >
+                            Open in Google Maps
+                            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                        </a>
+                    </div>
+                </div>
+
+                {/* Bottom Gradient for smoother transition */}
+                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white dark:from-gray-950 to-transparent pointer-events-none transition-colors duration-300"></div>
             </section>
         </AppLayout>
     );

@@ -49,19 +49,22 @@ export default function FilterSidebar({ brands, filters }) {
     };
 
     return (
-        <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">Filter Vehicles</h3>
+        <div className="p-6">
+            <h3 className="text-xl font-black text-gray-900 mb-6 flex items-center gap-2">
+                <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" /></svg>
+                Filter Vehicles
+            </h3>
             <form onSubmit={handleSubmit}>
-                <div className="space-y-4">
+                <div className="space-y-6">
                     {/* Brand */}
                     <div>
-                        <label htmlFor="brand" className="block text-sm font-medium text-gray-700">Brand</label>
+                        <label htmlFor="brand" className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Brand</label>
                         <select
                             id="brand"
                             name="brand"
                             value={values.brand}
                             onChange={handleChange}
-                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-md"
+                            className="mt-1 block w-full pl-3 pr-10 py-2.5 text-base border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-xl transition-colors"
                         >
                             <option value="">All Brands</option>
                             {brands.map((brand) => (
@@ -72,39 +75,39 @@ export default function FilterSidebar({ brands, filters }) {
 
                     {/* Price Range */}
                     <div>
-                        <label htmlFor="min_price" className="block text-sm font-medium text-gray-700">Min Price</label>
+                        <label htmlFor="min_price" className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Min Price</label>
                         <input
                             type="number"
                             name="min_price"
                             id="min_price"
                             value={values.min_price}
                             onChange={handleChange}
-                            className="mt-1 focus:ring-emerald-500 focus:border-emerald-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            className="mt-1 focus:ring-emerald-500 focus:border-emerald-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 rounded-xl transition-colors"
                             placeholder="Min"
                         />
                     </div>
                     <div>
-                        <label htmlFor="max_price" className="block text-sm font-medium text-gray-700">Max Price</label>
+                        <label htmlFor="max_price" className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Max Price</label>
                         <input
                             type="number"
                             name="max_price"
                             id="max_price"
                             value={values.max_price}
                             onChange={handleChange}
-                            className="mt-1 focus:ring-emerald-500 focus:border-emerald-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            className="mt-1 focus:ring-emerald-500 focus:border-emerald-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 rounded-xl transition-colors"
                             placeholder="Max"
                         />
                     </div>
 
                     {/* Year */}
                     <div>
-                        <label htmlFor="year" className="block text-sm font-medium text-gray-700">Year</label>
+                        <label htmlFor="year" className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Year</label>
                         <select
                             id="year"
                             name="year"
                             value={values.year}
                             onChange={handleChange}
-                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-md"
+                            className="mt-1 block w-full pl-3 pr-10 py-2.5 text-base border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-xl transition-colors"
                         >
                             <option value="">Any Year</option>
                             {Array.from({ length: 20 }, (_, i) => new Date().getFullYear() - i).map(year => (
@@ -115,13 +118,13 @@ export default function FilterSidebar({ brands, filters }) {
 
                     {/* Transmission */}
                     <div>
-                        <label htmlFor="transmission" className="block text-sm font-medium text-gray-700">Transmission</label>
+                        <label htmlFor="transmission" className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Transmission</label>
                         <select
                             id="transmission"
                             name="transmission"
                             value={values.transmission}
                             onChange={handleChange}
-                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-md"
+                            className="mt-1 block w-full pl-3 pr-10 py-2.5 text-base border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-xl transition-colors"
                         >
                             <option value="">Any Transmission</option>
                             <option value="Automatic">Automatic</option>
@@ -131,13 +134,13 @@ export default function FilterSidebar({ brands, filters }) {
 
                     {/* Fuel Type */}
                     <div>
-                        <label htmlFor="fuel_type" className="block text-sm font-medium text-gray-700">Fuel Type</label>
+                        <label htmlFor="fuel_type" className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Fuel Type</label>
                         <select
                             id="fuel_type"
                             name="fuel_type"
                             value={values.fuel_type}
                             onChange={handleChange}
-                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-md"
+                            className="mt-1 block w-full pl-3 pr-10 py-2.5 text-base border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-xl transition-colors"
                         >
                             <option value="">Any Fuel Type</option>
                             <option value="Petrol">Petrol</option>
@@ -147,17 +150,17 @@ export default function FilterSidebar({ brands, filters }) {
                         </select>
                     </div>
 
-                    <div className="flex space-x-2 pt-4">
+                    <div className="flex space-x-3 pt-6">
                         <button
                             type="submit"
-                            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
+                            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-all font-inter"
                         >
                             Filter
                         </button>
                         <button
                             type="button"
                             onClick={handleReset}
-                            className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
+                            className="w-full flex justify-center py-3 px-4 border border-gray-300 dark:border-gray-700 rounded-xl shadow-sm text-sm font-bold text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-all font-inter"
                         >
                             Reset
                         </button>

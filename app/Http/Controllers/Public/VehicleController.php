@@ -22,7 +22,8 @@ class VehicleController extends Controller
     {
         return Inertia::render('Home', [
             'featuredVehicles' => $this->vehicleService->getFeaturedVehicles(6),
-            'brands' => Brand::all(),
+            'brands' => \App\Models\Brand::all(),
+            'featuredGalleries' => \App\Models\Gallery::featured()->with('coverImage')->latest()->take(4)->get(),
         ]);
     }
 

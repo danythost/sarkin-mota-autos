@@ -30,12 +30,28 @@ export default function AdminLayout({ children }) {
                     >
                         Gallery
                     </Link>
-                    <div className="border-t border-gray-700 my-4"></div>
+
+                    <div className="pt-4 pb-2">
+                        <span className="px-4 text-[10px] font-black uppercase tracking-widest text-gray-500">Leads & Contacts</span>
+                    </div>
+
                     <Link
-                        href={route('home')}
-                        className="block px-4 py-2 rounded hover:bg-gray-700 text-gray-300 hover:text-white"
+                        href={route('admin.enquiries.index')}
+                        className={`block px-4 py-2 rounded transition ${route().current('admin.enquiries.*') ? 'bg-emerald-600' : 'hover:bg-gray-700'}`}
                     >
-                        Back to Site
+                        Contacts
+                    </Link>
+                    <Link
+                        href={route('admin.feedback.index')}
+                        className={`block px-4 py-2 rounded transition ${route().current('admin.feedback.*') ? 'bg-emerald-600' : 'hover:bg-gray-700'}`}
+                    >
+                        Feedback
+                    </Link>
+                    <Link
+                        href={route('admin.financing.index')}
+                        className={`block px-4 py-2 rounded transition ${route().current('admin.financing.*') ? 'bg-emerald-600' : 'hover:bg-gray-700'}`}
+                    >
+                        Financing Apps
                     </Link>
                 </nav>
             </div>
@@ -46,8 +62,22 @@ export default function AdminLayout({ children }) {
                 <header className="bg-white shadow-sm z-10">
                     <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                         <h2 className="text-lg font-semibold text-gray-800">Dashboard</h2>
-                        <div className="flex items-center space-x-4">
-                            <span className="text-sm text-gray-600">Welcome, {auth?.admin?.name}</span>
+                        <div className="flex items-center space-x-6">
+                            <div className="flex items-center space-x-3">
+                                <Link
+                                    href={route('admin.profile.edit')}
+                                    className="flex items-center space-x-3 group hover:text-emerald-600 transition-colors"
+                                >
+                                    <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                        </svg>
+                                    </div>
+                                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-emerald-600 transition-colors">
+                                        {auth?.admin?.name}
+                                    </span>
+                                </Link>
+                            </div>
                             <button
                                 onClick={() => router.post(route('admin.logout'))}
                                 className="text-sm font-medium text-red-500 hover:text-red-700 border border-red-200 hover:border-red-400 px-3 py-1.5 rounded-lg transition"

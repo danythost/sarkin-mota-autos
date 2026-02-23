@@ -16,10 +16,10 @@ function StepIndicator({ current }) {
                 <React.Fragment key={step.id}>
                     <div className="flex flex-col items-center">
                         <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 ${current > step.id
-                                ? 'bg-white border-white text-emerald-700'
-                                : current === step.id
-                                    ? 'bg-emerald-500 border-white text-white shadow-lg'
-                                    : 'bg-white/20 border-white/40 text-white/60'
+                            ? 'bg-white border-white text-emerald-700'
+                            : current === step.id
+                                ? 'bg-emerald-500 border-white text-white shadow-lg'
+                                : 'bg-white/20 border-white/40 text-white/60'
                             }`}>
                             {current > step.id ? (
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
@@ -36,8 +36,8 @@ function StepIndicator({ current }) {
     );
 }
 
-const inputClass = "w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition bg-white";
-const labelClass = "block text-sm font-semibold text-gray-700 mb-1";
+const inputClass = "w-full border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200";
+const labelClass = "block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1";
 const errorClass = "text-xs text-red-500 mt-1";
 
 export default function Financing({ vehicles = [], vehicle = null }) {
@@ -119,29 +119,29 @@ export default function Financing({ vehicles = [], vehicle = null }) {
                     style={{ backgroundImage: "url('https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=1950&q=80')" }}
                 />
                 <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-28 text-center">
-                    <span className="inline-block bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
+                    <span className="inline-block bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5 animate-reveal-down">
                         Auto Financing
                     </span>
-                    <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-5">
+                    <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-5 animate-reveal-up">
                         Flexible Auto Financing<br /> Made Simple
                     </h1>
-                    <p className="text-lg md:text-xl text-emerald-100 max-w-2xl mx-auto mb-8">
+                    <p className="text-lg md:text-xl text-emerald-100 max-w-2xl mx-auto mb-8 animate-reveal-up delay-100">
                         Drive your dream car today with convenient financing options from Sarkin Moto Autos. We make vehicle ownership accessible, affordable, and stress-free.
                     </p>
-                    <a href="#apply" className="inline-block bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-4 px-10 rounded-full transition duration-300 shadow-lg shadow-emerald-900/50">
+                    <a href="#apply" className="inline-block bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-4 px-10 rounded-full transition-all duration-300 shadow-lg shadow-emerald-900/50 active:scale-95 animate-reveal-up delay-200">
                         Start Application ↓
                     </a>
                 </div>
             </div>
 
             {/* Intro */}
-            <section className="py-20 bg-white">
+            <section className="py-20 bg-white dark:bg-gray-950 transition-colors duration-300">
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid md:grid-cols-2 gap-16 items-center">
                         <div>
-                            <span className="text-emerald-600 font-bold uppercase tracking-wider text-xs">How We Help</span>
-                            <h2 className="text-3xl font-extrabold text-gray-900 mt-2 mb-5">Drive Now, Pay Conveniently</h2>
-                            <p className="text-gray-600 leading-relaxed mb-6">
+                            <span className="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider text-xs">How We Help</span>
+                            <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white mt-2 mb-5">Drive Now, Pay Conveniently</h2>
+                            <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
                                 At Sarkin Moto Autos, we understand that paying the full cost of a vehicle upfront may not always be convenient. That's why we offer structured financing options.
                             </p>
                             <ul className="space-y-3">
@@ -152,19 +152,19 @@ export default function Financing({ vehicles = [], vehicle = null }) {
                                     'Drive away sooner without financial strain',
                                 ].map((item, i) => (
                                     <li key={i} className="flex items-start space-x-3">
-                                        <div className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                            <svg className="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <div className="w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/50 flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors">
+                                            <svg className="w-3 h-3 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                             </svg>
                                         </div>
-                                        <span className="text-gray-700 text-sm">{item}</span>
+                                        <span className="text-gray-700 dark:text-gray-300 text-sm transition-colors">{item}</span>
                                     </li>
                                 ))}
                             </ul>
                         </div>
 
                         {/* Sample Illustration */}
-                        <div className="bg-gradient-to-br from-emerald-600 to-teal-700 rounded-3xl p-8 text-white shadow-xl shadow-emerald-200">
+                        <div className="bg-gradient-to-br from-emerald-600 to-teal-700 dark:from-emerald-800 dark:to-teal-900 rounded-3xl p-8 text-white shadow-xl shadow-emerald-200 dark:shadow-emerald-950/20 transition-all duration-300">
                             <h3 className="text-lg font-bold mb-6 text-emerald-100">Sample Financing Illustration</h3>
                             <div className="space-y-4">
                                 {[
@@ -190,11 +190,11 @@ export default function Financing({ vehicles = [], vehicle = null }) {
             </section>
 
             {/* How It Works */}
-            <section className="py-20 bg-gray-50">
+            <section className="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-14">
-                        <span className="text-emerald-600 font-bold uppercase tracking-wider text-xs">The Process</span>
-                        <h2 className="text-3xl font-extrabold text-gray-900 mt-2">How It Works</h2>
+                        <span className="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider text-xs">The Process</span>
+                        <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white mt-2">How It Works</h2>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
                         {[
@@ -203,14 +203,14 @@ export default function Financing({ vehicles = [], vehicle = null }) {
                             { step: '03', title: 'Review', desc: 'Our finance team reviews your application and confirms eligibility.' },
                             { step: '04', title: 'Pay Deposit', desc: 'Make the agreed initial deposit payment.' },
                             { step: '05', title: 'Drive Away', desc: 'Complete documentation and take possession of your vehicle.' },
-                        ].map((item) => (
-                            <div key={item.step} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center hover:shadow-md transition">
-                                <div className="text-3xl font-extrabold text-emerald-100 mb-3">{item.step}</div>
-                                <div className="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                        ].map((item, idx) => (
+                            <div key={item.step} className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 text-center hover:shadow-md transition animate-reveal-up" style={{ animationDelay: `${idx * 150}ms` }}>
+                                <div className="text-3xl font-extrabold text-emerald-100 dark:text-emerald-950/20 mb-3">{item.step}</div>
+                                <div className="w-10 h-10 bg-emerald-600 dark:bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-3">
                                     <span className="text-white font-bold text-xs">{item.step}</span>
                                 </div>
-                                <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
-                                <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
+                                <h3 className="font-bold text-gray-900 dark:text-white mb-2">{item.title}</h3>
+                                <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -218,26 +218,68 @@ export default function Financing({ vehicles = [], vehicle = null }) {
             </section>
 
             {/* Why Finance + Eligibility */}
-            <section className="py-20 bg-white">
+            <section className="py-20 bg-white dark:bg-gray-950 transition-colors duration-300">
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid md:grid-cols-2 gap-12">
                         {/* Why Finance */}
                         <div>
-                            <span className="text-emerald-600 font-bold uppercase tracking-wider text-xs">Benefits</span>
-                            <h2 className="text-2xl font-extrabold text-gray-900 mt-2 mb-6">Why Finance With Us?</h2>
+                            <span className="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider text-xs">Benefits</span>
+                            <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white mt-2 mb-6">Why Finance With Us?</h2>
                             <div className="space-y-4">
                                 {[
-                                    { icon: '💎', title: 'Transparent Pricing', desc: 'No hidden fees or surprises. Full disclosure of all terms.' },
-                                    { icon: '🔄', title: 'Flexible Repayment', desc: 'Choose from 6, 12, 18, or 24 month plans to suit your budget.' },
-                                    { icon: '🤝', title: 'Trusted Partnerships', desc: 'We work with reliable financial institutions for your security.' },
-                                    { icon: '⚡', title: 'Fast Processing', desc: 'Quick approval process to get you driving as soon as possible.' },
-                                    { icon: '📄', title: 'Professional Docs', desc: 'All documentation handled properly and professionally.' },
-                                ].map((b) => (
-                                    <div key={b.title} className="flex items-start space-x-4">
-                                        <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center text-lg flex-shrink-0">{b.icon}</div>
+                                    {
+                                        icon: (
+                                            <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        ),
+                                        title: 'Transparent Pricing',
+                                        desc: 'No hidden fees or surprises. Full disclosure of all terms.'
+                                    },
+                                    {
+                                        icon: (
+                                            <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                            </svg>
+                                        ),
+                                        title: 'Flexible Repayment',
+                                        desc: 'Choose from 6, 12, 18, or 24 month plans to suit your budget.'
+                                    },
+                                    {
+                                        icon: (
+                                            <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                            </svg>
+                                        ),
+                                        title: 'Trusted Partnerships',
+                                        desc: 'We work with reliable financial institutions for your security.'
+                                    },
+                                    {
+                                        icon: (
+                                            <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                            </svg>
+                                        ),
+                                        title: 'Fast Processing',
+                                        desc: 'Quick approval process to get you driving as soon as possible.'
+                                    },
+                                    {
+                                        icon: (
+                                            <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                        ),
+                                        title: 'Professional Docs',
+                                        desc: 'All documentation handled properly and professionally.'
+                                    },
+                                ].map((b, idx) => (
+                                    <div key={b.title} className="flex items-start space-x-4 p-4 rounded-2xl hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-colors animate-reveal-up" style={{ animationDelay: `${idx * 100}ms` }}>
+                                        <div className="w-10 h-10 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors">
+                                            {b.icon}
+                                        </div>
                                         <div>
-                                            <h4 className="font-bold text-gray-900 text-sm">{b.title}</h4>
-                                            <p className="text-xs text-gray-500 mt-0.5">{b.desc}</p>
+                                            <h4 className="font-bold text-gray-900 dark:text-white text-sm">{b.title}</h4>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{b.desc}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -246,9 +288,9 @@ export default function Financing({ vehicles = [], vehicle = null }) {
 
                         {/* Eligibility */}
                         <div>
-                            <span className="text-emerald-600 font-bold uppercase tracking-wider text-xs">Requirements</span>
-                            <h2 className="text-2xl font-extrabold text-gray-900 mt-2 mb-6">Eligibility Requirements</h2>
-                            <p className="text-gray-600 text-sm mb-6">Applicants may be required to provide:</p>
+                            <span className="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider text-xs">Requirements</span>
+                            <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white mt-2 mb-6">Eligibility Requirements</h2>
+                            <p className="text-gray-600 dark:text-gray-400 text-sm mb-6">Applicants may be required to provide:</p>
                             <div className="space-y-3">
                                 {[
                                     'Valid government-issued ID',
@@ -270,12 +312,12 @@ export default function Financing({ vehicles = [], vehicle = null }) {
             </section>
 
             {/* Application Form */}
-            <section id="apply" className="py-24 bg-gradient-to-br from-gray-50 to-emerald-50">
+            <section id="apply" className="py-24 bg-gradient-to-br from-gray-50 to-emerald-50 dark:from-gray-900 dark:to-emerald-950/20 transition-colors duration-300">
                 <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-10">
-                        <span className="text-emerald-600 font-bold uppercase tracking-wider text-xs">Get Started</span>
-                        <h2 className="text-3xl font-extrabold text-gray-900 mt-2">Apply for Financing Today</h2>
-                        <p className="text-gray-500 text-sm mt-2">Fill out the form below and our team will get back to you promptly.</p>
+                        <span className="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider text-xs">Get Started</span>
+                        <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white mt-2">Apply for Financing Today</h2>
+                        <p className="text-gray-500 dark:text-gray-400 text-sm mt-2">Fill out the form below and our team will get back to you promptly.</p>
                     </div>
 
                     {submitted ? (
@@ -297,7 +339,7 @@ export default function Financing({ vehicles = [], vehicle = null }) {
                             </div>
                         </div>
                     ) : (
-                        <form onSubmit={handleSubmit} className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+                        <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-900 rounded-3xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-800 transition-colors duration-300">
                             {/* Header */}
                             <div className="bg-gradient-to-r from-emerald-600 to-teal-600 px-8 py-6">
                                 <StepIndicator current={currentStep} />
@@ -450,7 +492,7 @@ export default function Financing({ vehicles = [], vehicle = null }) {
                                             <label className={labelClass}>Vehicle Price (₦)</label>
                                             <input
                                                 type="text"
-                                                className={`${inputClass} bg-gray-50 text-gray-500`}
+                                                className={`${inputClass} bg-gray-50 dark:bg-gray-800/50 text-gray-500 dark:text-gray-400`}
                                                 value={data.vehicle_price ? Number(data.vehicle_price).toLocaleString() : ''}
                                                 readOnly
                                                 placeholder="Auto-filled from vehicle selection"
@@ -482,22 +524,22 @@ export default function Financing({ vehicles = [], vehicle = null }) {
 
                                         {/* Live Calculation */}
                                         {data.calculated_monthly_payment && (
-                                            <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-5">
-                                                <h4 className="font-bold text-emerald-800 mb-3">💡 Estimated Breakdown</h4>
+                                            <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/40 rounded-2xl p-5 transition-colors">
+                                                <h4 className="font-bold text-emerald-800 dark:text-emerald-300 mb-3">💡 Estimated Breakdown</h4>
                                                 <div className="grid grid-cols-2 gap-3 text-sm">
                                                     <div>
-                                                        <span className="text-gray-500">Balance to Finance</span>
-                                                        <p className="font-bold text-gray-900">{formatNaira(parseFloat(data.vehicle_price) - parseFloat(data.proposed_deposit))}</p>
+                                                        <span className="text-gray-500 dark:text-gray-400">Balance to Finance</span>
+                                                        <p className="font-bold text-gray-900 dark:text-white">{formatNaira(parseFloat(data.vehicle_price) - parseFloat(data.proposed_deposit))}</p>
                                                     </div>
                                                     <div>
-                                                        <span className="text-gray-500">Duration</span>
-                                                        <p className="font-bold text-gray-900">{data.preferred_duration} months</p>
+                                                        <span className="text-gray-500 dark:text-gray-400">Duration</span>
+                                                        <p className="font-bold text-gray-900 dark:text-white">{data.preferred_duration} months</p>
                                                     </div>
                                                 </div>
-                                                <div className="mt-3 pt-3 border-t border-emerald-200">
-                                                    <span className="text-xs text-emerald-700 uppercase tracking-wider">Est. Monthly Payment</span>
-                                                    <p className="text-2xl font-extrabold text-emerald-700">{formatNaira(data.calculated_monthly_payment)}</p>
-                                                    <p className="text-xs text-emerald-600 mt-1">*Final terms may vary depending on agreement.</p>
+                                                <div className="mt-3 pt-3 border-t border-emerald-200 dark:border-emerald-900/40">
+                                                    <span className="text-xs text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">Est. Monthly Payment</span>
+                                                    <p className="text-2xl font-extrabold text-emerald-700 dark:text-emerald-400">{formatNaira(data.calculated_monthly_payment)}</p>
+                                                    <p className="text-xs text-emerald-600 dark:text-emerald-500 mt-1">*Final terms may vary depending on agreement.</p>
                                                 </div>
                                             </div>
                                         )}
@@ -542,15 +584,15 @@ export default function Financing({ vehicles = [], vehicle = null }) {
                                         </div>
 
                                         {/* Summary */}
-                                        <div className="bg-gray-50 rounded-2xl p-5 border border-gray-100">
-                                            <h4 className="font-bold text-gray-900 mb-3">Application Summary</h4>
+                                        <div className="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-5 border border-gray-100 dark:border-gray-700 transition-colors">
+                                            <h4 className="font-bold text-gray-900 dark:text-white mb-3">Application Summary</h4>
                                             <div className="space-y-2 text-sm">
-                                                <div className="flex justify-between"><span className="text-gray-500">Applicant</span><span className="font-medium">{data.full_name || '—'}</span></div>
-                                                <div className="flex justify-between"><span className="text-gray-500">Vehicle</span><span className="font-medium">{vehicles.find(v => String(v.id) === String(data.vehicle_id))?.title || '—'}</span></div>
-                                                <div className="flex justify-between"><span className="text-gray-500">Vehicle Price</span><span className="font-medium">{formatNaira(data.vehicle_price)}</span></div>
-                                                <div className="flex justify-between"><span className="text-gray-500">Deposit</span><span className="font-medium">{formatNaira(data.proposed_deposit)}</span></div>
-                                                <div className="flex justify-between"><span className="text-gray-500">Duration</span><span className="font-medium">{data.preferred_duration} months</span></div>
-                                                <div className="flex justify-between border-t border-gray-200 pt-2 mt-2"><span className="text-gray-900 font-bold">Est. Monthly</span><span className="font-bold text-emerald-600">{formatNaira(data.calculated_monthly_payment)}</span></div>
+                                                <div className="flex justify-between"><span className="text-gray-500 dark:text-gray-400">Applicant</span><span className="font-medium text-gray-900 dark:text-white">{data.full_name || '—'}</span></div>
+                                                <div className="flex justify-between"><span className="text-gray-500 dark:text-gray-400">Vehicle</span><span className="font-medium text-gray-900 dark:text-white">{vehicles.find(v => String(v.id) === String(data.vehicle_id))?.title || '—'}</span></div>
+                                                <div className="flex justify-between"><span className="text-gray-500 dark:text-gray-400">Vehicle Price</span><span className="font-medium text-gray-900 dark:text-white">{formatNaira(data.vehicle_price)}</span></div>
+                                                <div className="flex justify-between"><span className="text-gray-500 dark:text-gray-400">Deposit</span><span className="font-medium text-gray-900 dark:text-white">{formatNaira(data.proposed_deposit)}</span></div>
+                                                <div className="flex justify-between"><span className="text-gray-500 dark:text-gray-400">Duration</span><span className="font-medium text-gray-900 dark:text-white">{data.preferred_duration} months</span></div>
+                                                <div className="flex justify-between border-t border-gray-200 dark:border-gray-700 pt-2 mt-2"><span className="text-gray-900 dark:text-white font-bold">Est. Monthly</span><span className="font-bold text-emerald-600 dark:text-emerald-400">{formatNaira(data.calculated_monthly_payment)}</span></div>
                                             </div>
                                         </div>
                                     </div>

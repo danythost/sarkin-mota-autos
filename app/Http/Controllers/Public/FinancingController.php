@@ -51,6 +51,6 @@ class FinancingController extends Controller
 
         FinancingApplication::create($validated);
 
-        return redirect()->back()->with('success', 'Your financing application has been submitted successfully. Our team will review it and get back to you shortly.');
+        return redirect()->route('dashboard')->with('success', 'Your financing application has been submitted successfully. Our team will review it and get back to you shortly.');
     }
 }
