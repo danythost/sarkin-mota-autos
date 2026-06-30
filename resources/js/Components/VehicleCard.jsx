@@ -18,7 +18,7 @@ export default function VehicleCard({ vehicle }) {
             <div className="relative h-64 overflow-hidden">
                 {vehicle.images && vehicle.images.length > 0 ? (
                     <img
-                        src={`/storage/${vehicle.images[0].image_path}`}
+                        src={vehicle.images[0].image_path.startsWith('http') ? vehicle.images[0].image_path : `/storage/${vehicle.images[0].image_path}`}
                         alt={vehicle.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />

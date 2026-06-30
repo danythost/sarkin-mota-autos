@@ -4,11 +4,13 @@ import AppLayout from '@/Layouts/AppLayout';
 import VehicleCard from '@/Components/VehicleCard';
 
 export default function Show({ vehicle, similarVehicles }) {
-    const [activeImage, setActiveImage] = useState(
-        vehicle.images && vehicle.images.length > 0
-            ? `/storage/${vehicle.images.find(img => img.is_cover)?.image_path || vehicle.images[0].image_path}`
-            : 'https://placehold.co/600x400?text=No+Image'
-    );
+    const [activeImage, setActiveImage] = useState(() => {
+        if (!vehicle.images || vehicle.images.length === 0) {
+            return 'https://placehold.co/600x400?text=No+Image';
+        }
+        const imgPath = vehicle.images.find(img => img.is_cover)?.image_path || vehicle.images[0].image_path;
+        return imgPath.startsWith('http') ? imgPath : `/storage/${imgPath}`;
+    });
 
     const formatCurrency = (amount) => {
         return new Intl.NumberFormat('en-NG', {
@@ -35,10 +37,13 @@ export default function Show({ vehicle, similarVehicles }) {
                                     {vehicle.images.map((image, index) => (
                                         <button
                                             key={index}
-                                            onClick={() => setActiveImage(`/storage/${image.image_path}`)}
+                                            onClick={() => {
+                                                const path = image.image_path;
+                                                setActiveImage(path.startsWith('http') ? path : `/storage/${path}`);
+                                            }}
                                             className={`aspect-w-3 aspect-h-2 rounded-md overflow-hidden border-2 ${activeImage.includes(image.image_path) ? 'border-emerald-500' : 'border-transparent'}`}
                                         >
-                                            <img src={`/storage/${image.image_path}`} alt={`View ${index + 1}`} className="w-full h-full object-cover" />
+                                            <img src={image.image_path.startsWith('http') ? image.image_path : `/storage/${image.image_path}`} alt={`View ${index + 1}`} className="w-full h-full object-cover" />
                                         </button>
                                     ))}
                                 </div>

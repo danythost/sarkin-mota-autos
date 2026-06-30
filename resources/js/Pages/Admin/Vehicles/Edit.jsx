@@ -296,7 +296,7 @@ export default function Edit({ vehicle, brands }) {
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                     {existingImages.map((img) => (
                                         <div key={img.id} className="relative group">
-                                            <img src={`/storage/${img.image_path}`} alt="Vehicle Image" className="h-24 w-full object-cover rounded-md" />
+                                            <img src={img.image_path.startsWith('http') ? img.image_path : `/storage/${img.image_path}`} alt="Vehicle Image" className="h-24 w-full object-cover rounded-md" />
                                             <button
                                                 type="button"
                                                 onClick={() => removeExistingImage(img.id)}
