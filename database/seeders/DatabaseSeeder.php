@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             BrandSeeder::class,
             VehicleSeeder::class,
+            GallerySeeder::class,
         ]);
     }
 }
